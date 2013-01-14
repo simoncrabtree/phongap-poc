@@ -17,10 +17,10 @@ var app = {
         var self = this;
         this.store = new MemoryStore(function () {
             self.showAlert('Store Initialized', 'Info');
-            self.takePhoto();
         });
         $('.search-key').on('keyup', $.proxy(this.findByName, this));
         self.registerEvents();
+        self.takePhoto();
     },
 
     showAlert: function(message, title) {
@@ -32,6 +32,7 @@ var app = {
     },
 
     takePhoto: function () {
+        var self = this;
         var options = {
             quality: 50,
             destinationType: Camera.DestinationType.DATA_URL,
