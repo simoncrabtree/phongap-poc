@@ -17,6 +17,7 @@ var app = {
         var self = this;
         this.store = new MemoryStore(function () {
             self.showAlert('Store Initialized', 'Info');
+            self.takePhoto();
         });
         $('.search-key').on('keyup', $.proxy(this.findByName, this));
         self.registerEvents();
@@ -28,6 +29,25 @@ var app = {
         } else {
             alert(title ? (title + ": " + message) : message);
         }
+    },
+
+    takePhoto: function () {
+        var options = {
+            quality: 50,
+            destinationType: Camera.DestinationType.DATA_URL,
+            sourceType: 1,
+            encodingType: 0
+        };
+
+        navigator.camera.getPicture(
+            function (imageData) {
+                $('.employee-image').attr('src', "data:image/jpeg;base64," + imageData);
+            },
+            function () {
+                console.log("Error taking picture");
+            },
+            options
+        );
     },
 
     registerEvents: function () {
